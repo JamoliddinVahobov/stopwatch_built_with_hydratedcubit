@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       create: (context) => WatchCubit(),
       child: MaterialApp(
         onGenerateRoute: appRouter.onGenerateRoute,
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: true,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
