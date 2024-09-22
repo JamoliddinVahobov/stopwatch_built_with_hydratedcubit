@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:app_with_bloc/logic/cubit/stopwatch_cubit.dart';
 import 'package:app_with_bloc/presentation/screens/router/app_router.dart';

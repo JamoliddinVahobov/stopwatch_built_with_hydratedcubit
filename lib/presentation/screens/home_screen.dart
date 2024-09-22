@@ -20,27 +20,74 @@ class _HomePageState extends State<HomePage> {
   Future<bool?> _showClearDialog() {
     return showDialog<bool>(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          content: const Text(
-            'Do you want to delete all times',
-            style: TextStyle(fontSize: 15),
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false); // User pressed Cancel
-              },
-              child: const Text('Cancel'),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.8,
+                maxHeight: MediaQuery.of(context).size.height * 0.5,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Do you want to delete all times?',
+                      style: TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Flexible(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop(false);
+                            },
+                            child: const Text(
+                              'Cancel',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Flexible(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                            child: const Text(
+                              'Delete',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(true); // User pressed Delete
-              },
-              child: const Text('Delete'),
-            ),
-          ],
+          ),
         );
       },
     );
@@ -51,37 +98,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[200],
-        toolbarHeight: 90, // Increased the toolbar height
-        flexibleSpace: Center(
-          child: BlocBuilder<WatchCubit, WatchState>(
-            builder: (context, state) {
-              final elapsedTime = state.elapsedTime;
-              final seconds = (elapsedTime / 1000).floor();
-              final milliseconds = elapsedTime % 1000;
-              final formattedTime =
-                  '$seconds.${milliseconds.toString().padLeft(3, '0')}';
-              return Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Elapsed Time',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    Text(
-                      formattedTime,
-                      style: const TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
+        toolbarHeight: 40,
+        title: const FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text('Stopwatch'),
         ),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Column(
@@ -144,58 +166,104 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            // The button container remains fixed at the bottom
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              padding: const EdgeInsets.only(bottom: 30),
               color: Colors.grey[200],
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  BlocBuilder<WatchCubit, WatchState>(
+                    builder: (context, state) {
+                      final elapsedTime = state.elapsedTime;
+                      final seconds = (elapsedTime / 1000).floor();
+                      final milliseconds = elapsedTime % 1000;
+                      final formattedTime =
+                          '$seconds.${milliseconds.toString().padLeft(3, '0')}';
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          FittedBox(
+                            child: Text(
+                              formattedTime,
+                              style: const TextStyle(
+                                fontSize: 50,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          const Divider(
+                            thickness: 2,
+                            color: Colors.grey,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 40),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () {
                           context.read<WatchCubit>().start();
                         },
-                        child: CircleAvatar(
+                        child: const CircleAvatar(
                           radius: 30,
                           backgroundColor: Colors.green,
-                          child: Icon(Icons.play_arrow, color: Colors.white),
+                          child: Icon(
+                            Icons.play_arrow_rounded,
+                            color: Colors.white,
+                            size: 40,
+                          ),
                         ),
                       ),
+                      const SizedBox(width: 60),
                       GestureDetector(
                         onTap: () {
                           context.read<WatchCubit>().stop();
                         },
-                        child: CircleAvatar(
+                        child: const CircleAvatar(
                           radius: 30,
                           backgroundColor: Colors.red,
-                          child: Icon(Icons.stop, color: Colors.white),
+                          child: Icon(
+                            Icons.stop_rounded,
+                            color: Colors.white,
+                            size: 35,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20), // Space between rows
+                  const SizedBox(height: 20),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () {
                           context.read<WatchCubit>().reset();
                         },
-                        child: CircleAvatar(
+                        child: const CircleAvatar(
                           radius: 30,
                           backgroundColor: Colors.orange,
-                          child: Icon(Icons.restart_alt, color: Colors.white),
+                          child: Icon(
+                            Icons.restart_alt_rounded,
+                            color: Colors.white,
+                            size: 30,
+                          ),
                         ),
                       ),
+                      const SizedBox(width: 60),
                       GestureDetector(
                         onTap: _handleClearAll,
-                        child: CircleAvatar(
+                        child: const CircleAvatar(
                           radius: 30,
                           backgroundColor: Colors.blue,
-                          child: Icon(Icons.clear, color: Colors.white),
+                          child: Icon(
+                            Icons.clear_rounded,
+                            color: Colors.white,
+                            size: 30,
+                          ),
                         ),
                       ),
                     ],
