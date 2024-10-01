@@ -1,4 +1,5 @@
-part of 'stopwatch_cubit.dart';
+import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 class WatchState extends Equatable {
   final int elapsedTime;
@@ -14,12 +15,23 @@ class WatchState extends Equatable {
   @override
   List<Object?> get props => [elapsedTime, isRunning, stoppedTimes];
 
+  WatchState copyWith({
+    int? elapsedTime,
+    bool? isRunning,
+    List<int>? stoppedTimes,
+  }) {
+    return WatchState(
+      elapsedTime: elapsedTime ?? this.elapsedTime,
+      isRunning: isRunning ?? this.isRunning,
+      stoppedTimes: stoppedTimes ?? this.stoppedTimes,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'elapsedTime': elapsedTime,
       'isRunning': isRunning,
-      'stoppedTimes':
-          stoppedTimes.map((e) => e).toList(), // Ensure it's a List<int>
+      'stoppedTimes': stoppedTimes,
     };
   }
 
@@ -27,8 +39,7 @@ class WatchState extends Equatable {
     return WatchState(
       elapsedTime: map['elapsedTime'] as int,
       isRunning: map['isRunning'] as bool,
-      stoppedTimes:
-          List<int>.from(map['stoppedTimes']), // Safely cast to List<int>
+      stoppedTimes: List<int>.from(map['stoppedTimes'] ?? []),
     );
   }
 

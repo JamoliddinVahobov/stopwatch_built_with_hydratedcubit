@@ -1,26 +1,33 @@
 import 'package:app_with_bloc/logic/cubit/stopwatch_cubit.dart';
-import 'package:app_with_bloc/presentation/screens/home_screen.dart';
+import 'package:app_with_bloc/presentation/screens/settings_screen.dart';
+import 'package:app_with_bloc/presentation/screens/stopwatch_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
-  final WatchCubit _watchCubit = WatchCubit();
+  static const String stopwatchRoute = '/';
+  static const String settingsRoute = 'settings';
 
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case '/':
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: _watchCubit,
-            child: const HomePage(),
-          ),
-        );
-
+      case stopwatchRoute:
+        return _buildRoute(const StopwatchScreen());
+      case settingsRoute:
+        return _buildRoute(const SettingsScreen());
       default:
-        return MaterialPageRoute(
-          builder: (_) => const UnknownRouteScreen(),
-        );
+        return _buildRoute(const UnknownRouteScreen());
     }
+  }
+
+  MaterialPageRoute _buildRoute(Widget screen) {
+    return MaterialPageRoute(
+      builder: (context) {
+        return BlocProvider(
+          create: (_) => WatchCubit(),
+          child: screen,
+        );
+      },
+    );
   }
 }
 

@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:app_with_bloc/main.dart';
-import 'package:app_with_bloc/presentation/screens/router/app_router.dart';
+import 'package:app_with_bloc/presentation/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
