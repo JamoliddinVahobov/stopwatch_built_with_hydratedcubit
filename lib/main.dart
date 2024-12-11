@@ -37,7 +37,8 @@ class MyApp extends StatelessWidget {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     return MaterialApp(
       onGenerateRoute: appRouter.onGenerateRoute,
-      title: 'Stopwatch',
+      debugShowCheckedModeBanner: false,
+      title: 'SwiftLap',
       theme: themeNotifier.lightTheme,
       darkTheme: themeNotifier.darkTheme,
       themeMode: themeNotifier.isDarkMode ? ThemeMode.dark : ThemeMode.light,

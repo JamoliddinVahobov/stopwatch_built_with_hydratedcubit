@@ -1,4 +1,4 @@
-package com.example.app_with_bloc
+package com.jamoliddin.stopwatch
 
 import io.flutter.embedding.android.FlutterActivity
 

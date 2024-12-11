@@ -108,7 +108,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
           padding: EdgeInsets.only(left: 10),
           child: FittedBox(
             fit: BoxFit.scaleDown,
-            child: Text('Stopwatch'),
+            child: Text('SwiftLap'),
           ),
         ),
         actions: [

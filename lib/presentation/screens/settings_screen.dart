@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../change_theme/theme_notifier.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -10,6 +11,22 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final String privacyPolicyUrl =
+      'https://www.termsfeed.com/live/a4e16d9c-469c-4b53-a499-247030170ca8';
+  Future<void> launchPrivacyPolicy() async {
+    try {
+      await launchUrlString(
+        privacyPolicyUrl,
+        mode: LaunchMode.externalApplication,
+      );
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Could not launch Privacy Policy')));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
@@ -39,13 +56,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: const EdgeInsets.only(top: 5, left: 5),
         child: ListView(
           children: [
-            SwitchListTile(
+            ListTile(
+              leading: const Icon(
+                Icons.dark_mode_rounded,
+                size: 27,
+              ),
               title: const Text('Dark Mode'),
-              value: themeNotifier.isDarkMode,
-              onChanged: (value) {
-                themeNotifier.toggleTheme();
-              },
+              trailing: Switch(
+                value: themeNotifier.isDarkMode,
+                onChanged: (value) {
+                  themeNotifier.toggleTheme();
+                },
+              ),
             ),
+            ListTile(
+              leading: const Icon(
+                Icons.policy_rounded,
+                size: 27,
+              ),
+              title: const Text('Privacy Policy'),
+              onTap: () {
+                launchPrivacyPolicy();
+              },
+            )
           ],
         ),
       ),
