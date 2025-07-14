@@ -33,7 +33,8 @@ class ThemeNotifier extends ChangeNotifier {
 // In your ThemeData
   ThemeData get darkTheme => ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color(0xFF2A2A2A),
-        dialogBackgroundColor: const Color(0xFF2A2A2A),
+        dialogTheme: const DialogThemeData(backgroundColor: Color(0xFF2A2A2A)),
+        // dialogBackgroundColor: const Color(0xFF2A2A2A),
         appBarTheme: AppBarTheme(
           backgroundColor: getIntermediateGrey(), // Use the interpolated color
         ),
