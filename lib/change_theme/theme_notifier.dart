@@ -36,10 +36,10 @@ class ThemeNotifier extends ChangeNotifier {
         dialogTheme: const DialogThemeData(backgroundColor: Color(0xFF2A2A2A)),
         // dialogBackgroundColor: const Color(0xFF2A2A2A),
         appBarTheme: AppBarTheme(
-          backgroundColor: getIntermediateGrey(), // Use the interpolated color
+          backgroundColor: getIntermediateGrey(),
         ),
         colorScheme: ColorScheme.dark(
-          onPrimary: getIntermediateGrey(), // Use the interpolated color
+          onPrimary: getIntermediateGrey(),
         ),
       );
 

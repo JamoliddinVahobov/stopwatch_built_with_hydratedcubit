@@ -39,6 +39,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(
+            tooltip: 'Back',
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
