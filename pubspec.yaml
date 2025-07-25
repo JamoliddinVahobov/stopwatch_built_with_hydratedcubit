@@ -4,7 +4,7 @@ description: "Stopwatch app with precise time tracking, lap saving, and
 
 publish_to: 'none'
 
-version: 1.0.8+9
+version: 1.0.9+10
 
 environment:
   sdk: ^3.5.1
