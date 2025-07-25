@@ -1,16 +1,18 @@
-# app_with_bloc
+SwiftLap
+SwiftLap is a stopwatch app focused on precision, usability, and clean design. It offers accurate time tracking, lap saving, and support for theme customization.
 
-A new Flutter project.
+Features
+Precise stopwatch with start, pause, and reset functionality
 
-## Getting Started
+Lap time recording with a history view
 
-This project is a starting point for a Flutter application.
+Light and dark themes with seamless switching
 
-A few resources to get you started if this is your first Flutter project:
+Persistent lap data even after app restarts
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Architecture & State Management
+Bloc & Cubit — for structured, reactive state management
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+HydratedCubit — to persist lap data locally
+
+Provider — to manage and switch themes efficiently
