@@ -13,6 +13,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   final String privacyPolicyUrl =
       'https://www.termsfeed.com/live/a4e16d9c-469c-4b53-a499-247030170ca8';
+
   Future<void> launchPrivacyPolicy() async {
     try {
       await launchUrlString(
